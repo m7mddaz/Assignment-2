@@ -1,8 +1,9 @@
-
 from datetime import datetime
+
 
 class Room:
     """Class representing a hotel room."""
+
     def __init__(self, number, room_type, amenities, price):
         self._number = number
         self._room_type = room_type
@@ -31,6 +32,7 @@ class Room:
 
 class Guest:
     """Class representing a hotel guest."""
+
     def __init__(self, name, email, contact, loyalty_status):
         self._name = name
         self._email = email
@@ -59,6 +61,7 @@ class Guest:
 
 class Booking:
     """Class representing a booking."""
+
     def __init__(self, guest, room, check_in, check_out):
         self._guest = guest
         self._room = room
@@ -108,7 +111,8 @@ def main():
         # Searching Available Rooms
         print("=== Room Search ===")
         room_type = input("Room Type (Single/Double/Suite): ")
-        available_rooms = [room for room in rooms if room.get_room_type().lower() == room_type.lower() and room.is_available()]
+        available_rooms = [room for room in rooms if
+                           room.get_room_type().lower() == room_type.lower() and room.is_available()]
         if not available_rooms:
             print("No available rooms found.")
             return
@@ -146,15 +150,21 @@ def main():
                 print(f"{key}: {value}")
             print()
 
-            # Payment Processing
+            # Payment Processing (Corrected part)
             print("=== Payment ===")
+            allowed_methods = ["credit card", "mobile wallet"]
             payment_method = input("Payment Method (Credit Card/Mobile Wallet): ")
+
+            if payment_method.strip().lower() not in allowed_methods:
+                raise ValueError("Invalid payment method selected. Please choose Credit Card or Mobile Wallet.")
+
             print(f"Payment of ${invoice['Total']} received via {payment_method}.\n")
 
             # Reservation History
             print("=== Reservation History ===")
             for res in guest.get_reservations():
-                print(f"Room {res._room.get_number()} from {res._check_in.date()} to {res._check_out.date()}, Status: {res.get_status()}")
+                print(
+                    f"Room {res._room.get_number()} from {res._check_in.date()} to {res._check_out.date()}, Status: {res.get_status()}")
             print()
 
             # Cancellation
@@ -172,8 +182,6 @@ def main():
     except Exception as e:
         print(f"General Error occurred: {e}")
 
+
 if __name__ == "__main__":
     main()
-
-
-
